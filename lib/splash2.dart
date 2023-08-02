@@ -8,7 +8,7 @@ class Splash2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      // backgroundColor: Colors.blueGrey,
       body: Container(
          decoration: BoxDecoration(
         //gradient: LinearGradient(
