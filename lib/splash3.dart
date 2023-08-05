@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:project1/statefull%20login.dart';
 
 import 'login.dart';
 void main(){
@@ -15,8 +16,8 @@ class Splash3 extends StatefulWidget {
 class Splash3State extends State {
   @override
   void initState() { //what will happen when the app or page is first launched
-    Timer(Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginPage()));
+    Timer(Duration(seconds: 1), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>Login2()));
     });
     super.initState();
   }
