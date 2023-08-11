@@ -16,7 +16,8 @@ class Animations extends StatelessWidget {
       appBar: AppBar(
         title: Text("Animation"),
       ),
-      body: ListView(
+      body:
+      ListView(
         children: [
           Lottie.asset("assets/Animation/animation.json"),
           Lottie.network("https://lottie.host/ff1b6021-92f0-4fd3-ad71-142c792f563c/sCkvt6Q1Kx.json"),
