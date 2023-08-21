@@ -17,7 +17,8 @@ class Expandedd extends StatelessWidget {
         children: [
           Expanded(
             child: Image.asset("assets/images/background.jpg"),
-          ), Expanded(
+          ),
+          Expanded(
             child: Image.asset("assets/images/background.jpg"),
           ),
           Expanded(
