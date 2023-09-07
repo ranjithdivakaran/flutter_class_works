@@ -39,7 +39,11 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_custom_clippers: ^2.1.0
   webview_flutter: ^4.2.2
+  readmore: ^2.2.0
+  google_maps_flutter: ^2.5.0
+  shared_preferences: ^2.2.1
   rive:
+
 
 
 
