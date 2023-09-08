@@ -43,8 +43,7 @@ class _SharedhomeState extends State<Sharedhome> {
   void fetchdata() async {
     preferences = await SharedPreferences.getInstance();
     setState(() {
-      username = preferences
-          .getString("uname")!; //fetch the value from shared preference
+      username = preferences.getString("uname")!; //fetch the value from shared preference
     });
   }
 }

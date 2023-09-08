@@ -77,14 +77,28 @@ class _LoginsharedState extends State<Loginshared> {
                 preferences = await SharedPreferences.getInstance();
                 String username = email.text;
                 String pass = pwd.text;
-                if (username != "" && pass != "") {
-                  preferences.setString("uname", username);
-                  preferences.setString("pword", pass);
-                  //set the user logged in
-                  preferences.setBool("newuser", false);
-                  Navigator.push(context,
+                String? storeduname = preferences.getString('uname');
+                String? storedpassword = preferences.getString("pwd");
+                if (storeduname == username && storedpassword == pass) {
+                  Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Sharedhome()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Invalid username or password"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
+
+                // if (username != "" && pass != "") {
+                //   preferences.setString("uname", username);
+                //   preferences.setString("pword", pass);
+                //   //set the user logged in
+                //   preferences.setBool("newuser", false);
+                //   Navigator.push(context,
+                //       MaterialPageRoute(builder: (context) => Sharedhome()));
+                // }
                 // to clear text fields
                 email.text = "";
                 pwd.text = "";
