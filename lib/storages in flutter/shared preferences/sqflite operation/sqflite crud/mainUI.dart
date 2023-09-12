@@ -42,7 +42,22 @@ class _SqflitehomeState extends State<Sqflitehome> {
               itemCount: contacts.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: ListTile(),
+                  child: ListTile(
+                    title: Text(contacts[index]['cname']),
+                    //accessing single map from a list
+                    subtitle: Text(contacts[index]['cnumber']),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              showsheet(contacts[index]['id']);
+                            },
+                            icon: Icon(Icons.edit)),
+                        IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+                      ],
+                    ),
+                  ),
                 );
               }),
       floatingActionButton: FloatingActionButton(
@@ -56,6 +71,12 @@ class _SqflitehomeState extends State<Sqflitehome> {
   final phn_cntr = TextEditingController();
 
   void showsheet(int? id) async {
+    if (id != null) {
+      final existingcontact =
+          contacts.firstWhere((element) => element['id'] == id);
+      name_cntr.text = existingcontact['cname'];
+      phn_cntr.text = existingcontact['cnumber'];
+    }
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -72,14 +93,16 @@ class _SqflitehomeState extends State<Sqflitehome> {
               children: [
                 TextField(
                   controller: name_cntr,
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                      hintText: "name", border: OutlineInputBorder()),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextField(
                   controller: phn_cntr,
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                      hintText: "number", border: OutlineInputBorder()),
                 ),
                 SizedBox(
                   height: 20,
@@ -90,8 +113,11 @@ class _SqflitehomeState extends State<Sqflitehome> {
                       await createcontact();
                     }
                     if (id != null) {
-                      //await update contact(id);
+                      await updatecontact(id);
                     }
+                    name_cntr.text = "";
+                    phn_cntr.text = "";
+                    Navigator.pop(context);
                   },
                   child: Text(id == null ? "Create Contact" : "Update Contact"),
                 ),
@@ -104,14 +130,19 @@ class _SqflitehomeState extends State<Sqflitehome> {
   //to add a new data or contact to sqflite db
   Future<void> createcontact() async {
     var id = await SQLHelper.create_contact(name_cntr.text, phn_cntr.text);
-    print(id);
+    loadui();
   }
 
-  void loadui() async{
-    final data=await SQLHelper.readcontacts();
+  void loadui() async {
+    final data = await SQLHelper.readcontacts();
     setState(() {
-      contacts=data;
-      isloading=false;
+      contacts = data;
+      isloading = false;
     });
+  }
+
+  Future<void> updatecontact(int id) async{
+    await SQLHelper.updatecontact(id,name_cntr.text,phn_cntr.text);
+    loadui();
   }
 }

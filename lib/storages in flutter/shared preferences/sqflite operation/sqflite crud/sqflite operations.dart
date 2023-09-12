@@ -27,5 +27,21 @@ class SQLHelper {
     return id;
   }
 
-  static readcontacts() {}
+  static Future<List<Map<String, dynamic>>> readcontacts() async {
+    final db = await SQLHelper.createDB();
+    //read all the values from db
+    return db.query('contacts', orderBy: 'id');
+  }
+
+  static Future<int> updatecontact(int id, String name, String phone) async {
+    final db = await SQLHelper.createDB();
+    final newdata = {
+      'cname': name,
+      'cnumber': phone,
+      'createdAt': DateTime.now().toString()
+    };
+    final upid =
+        await db.update('mytable', newdata, where: 'id=?', whereArgs: [id]);
+    return upid;
+  }
 }
