@@ -26,4 +26,6 @@ class SQLHelper {
     final id = await db.insert('mytable', data); //data is created as a variable
     return id;
   }
+
+  static readcontacts() {}
 }

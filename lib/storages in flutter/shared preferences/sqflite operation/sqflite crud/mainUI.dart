@@ -22,6 +22,12 @@ class _SqflitehomeState extends State<Sqflitehome> {
   List<Map<String, dynamic>> contacts = [];
 
   @override
+  void initState() {
+    loadui();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -99,5 +105,13 @@ class _SqflitehomeState extends State<Sqflitehome> {
   Future<void> createcontact() async {
     var id = await SQLHelper.create_contact(name_cntr.text, phn_cntr.text);
     print(id);
+  }
+
+  void loadui() async{
+    final data=await SQLHelper.readcontacts();
+    setState(() {
+      contacts=data;
+      isloading=false;
+    });
   }
 }
