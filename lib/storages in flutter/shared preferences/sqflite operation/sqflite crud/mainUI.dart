@@ -54,7 +54,11 @@ class _SqflitehomeState extends State<Sqflitehome> {
                               showsheet(contacts[index]['id']);
                             },
                             icon: Icon(Icons.edit)),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+                        IconButton(
+                            onPressed: () {
+                              deletecontact(contacts[index]['id']);
+                            },
+                            icon: Icon(Icons.delete))
                       ],
                     ),
                   ),
@@ -141,8 +145,15 @@ class _SqflitehomeState extends State<Sqflitehome> {
     });
   }
 
-  Future<void> updatecontact(int id) async{
-    await SQLHelper.updatecontact(id,name_cntr.text,phn_cntr.text);
+  Future<void> updatecontact(int id) async {
+    await SQLHelper.updatecontact(id, name_cntr.text, phn_cntr.text);
     loadui();
+  }
+
+  Future<void> deletecontact(int id) async {
+    await SQLHelper.deletecontact(id);
+    loadui();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("succesfully Deleted")));
   }
 }

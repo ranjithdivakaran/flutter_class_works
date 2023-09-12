@@ -44,4 +44,13 @@ class SQLHelper {
         await db.update('mytable', newdata, where: 'id=?', whereArgs: [id]);
     return upid;
   }
+
+  static deletecontact(int id) async{
+    final db=await SQLHelper.createDB();
+    try{
+      await db.delete('mytable',where: 'id=?',whereArgs: [id]);
+    }catch(e){
+      throw Exception();
+    }
+  }
 }
